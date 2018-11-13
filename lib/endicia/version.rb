@@ -1,3 +1,3 @@
-class Endicia
-  VERSION = "0.1.0"
+module Endicia
+  VERSION = "1.0"
 end
