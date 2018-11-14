@@ -1,3 +1,5 @@
+require 'endicia/request/base'
+
 module Endicia
   module Request
 

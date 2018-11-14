@@ -1,3 +1,7 @@
 require "endicia/shipment"
-require "endicia/label"
-require "endicia/credentials"
+
+module Endicia
+  require 'endicia/version'
+  #Exceptions: Fedex::RateError
+  class RateError < StandardError; end
+end

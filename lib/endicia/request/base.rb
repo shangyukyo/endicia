@@ -1,3 +1,6 @@
+require 'rest-client'
+require 'builder'
+
 RestClient.log = Rails.logger
 
 module Endicia
@@ -12,7 +15,7 @@ module Endicia
       def initialize(credentials, options = {})
         @credentials = credentials
         @options = options
-        @debug = @options[:debug] === true
+        @debug = @options[:debug] === true        
       end
 
       def api_url

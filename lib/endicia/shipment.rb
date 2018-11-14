@@ -1,3 +1,11 @@
+require 'endicia/credentials'
+require 'endicia/request/account'
+require 'endicia/request/rate'
+require 'endicia/request/delete'
+require 'endicia/request/label'
+require 'endicia/request/pickup'
+require 'endicia/request/track'
+
 module Endicia
   class Shipment
     def initialize(options = {})
@@ -8,14 +16,10 @@ module Endicia
       Request::Label.new(@credentials, options).process_request
     end
 
-    def rate(options = {})
+    def rate(options = {})      
       Request::Rate.new(@credentials, options).process_request
     end
-
-    def retail_rate(options = {})
-      Request::Rate.new(@credentials, options).process_retail_request
-    end
-
+    
     def pickup(options)
       Request::Pickup.new(@credentials, options).process_request
     end

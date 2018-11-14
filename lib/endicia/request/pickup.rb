@@ -1,7 +1,9 @@
+require 'endicia/request/base'
+
 module Endicia
   module Request
 
-    class Pickup < ::Endicia::Request::Base
+    class Pickup < Base
       def initialize(credentials, options = {})
         super(credentials, options)
         @pickup_location = @options[:pickup_location]

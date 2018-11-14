@@ -1,8 +1,11 @@
+require 'endicia/request/shipment'
+require 'endicia/label'
+
 module Endicia
   module Request
 
-    class Label < ::Endicia::Request::Shipment
-      def initialize(credentials, options = {})
+    class Label < Shipment
+      def initialize(credentials, options = {})        
         super(credentials, options)
 
         @mail_class = @options[:mail_class]
@@ -15,7 +18,7 @@ module Endicia
         @label_specification.merge!(filepath: @filepath)
       end
 
-      def process_request
+      def process_request        
         build_xml
         service_url = "#{api_url}/GetPostageLabelXML"
         rsp = RestClient.post(service_url, { labelRequestXML: striped_xml_builder })

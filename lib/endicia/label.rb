@@ -5,7 +5,6 @@ module Endicia
     def initialize(response, label_specification = {})
       @response = response
       @label_specification = label_specification
-      puts @response
       raise @response["ErrorMessage"] if @response.key?("ErrorMessage")
       @images = Array(@response['Base64LabelImage'] || @response['Label']['Image'])
 
