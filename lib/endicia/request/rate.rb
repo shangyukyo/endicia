@@ -8,6 +8,8 @@ module Endicia
         super(credentials, options)
         @options[:pricing] ||= 'Retail'
         @mail_class = @options[:mail_class]
+        @signature_option = @options[:signature_option]
+
         if @mail_class.nil?
           @mail_class = international_shipping? ? 'International' : 'Domestic'
         end
@@ -15,6 +17,7 @@ module Endicia
 
       def process_request
         build_xml
+        puts striped_xml_builder
         service_url = "#{api_url}/CalculatePostageRatesXML"
         rsp = RestClient.post(service_url, { postageRatesRequestXML: striped_xml_builder })
         
@@ -31,6 +34,7 @@ module Endicia
           xml.ResponseOptions("PostagePrice" => 'FALSE')
           add_insurance(xml) if @insured_value.to_f > 0
           add_dimensions(xml) if @dimensions
+          add_signature_option(xml, @signature_option) if @signature_option
           xml.DeliveryTimeDays 'TRUE'
           xml.FromPostalCode @shipper[:postal_code]
           xml.ToPostalCode @recipient[:postal_code]

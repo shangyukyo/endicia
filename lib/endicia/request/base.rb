@@ -67,6 +67,10 @@ module Endicia
         xml.PassPhrase @credentials.pass_phrase
       end
 
+      def add_signature_option(xml, signature)
+        xml.Services :AdultSignature => signature, :AdultSignatureRestrictedDelivery => 'OFF'
+      end
+
       def add_account(xml)
         xml.AccountID @credentials.account_id
       end
@@ -76,7 +80,7 @@ module Endicia
           add_account(xml)
           add_pass_phrase(xml)
         }
-      end
+      end      
 
       def add_shipper(xml, address)
         xml.FromCompny(address[:company]) if address[:company]
