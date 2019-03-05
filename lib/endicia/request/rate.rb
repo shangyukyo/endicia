@@ -16,8 +16,7 @@ module Endicia
       end
 
       def process_request
-        build_xml
-        puts striped_xml_builder
+        build_xml        
         service_url = "#{api_url}/CalculatePostageRatesXML"
         rsp = RestClient.post(service_url, { postageRatesRequestXML: striped_xml_builder })
         
