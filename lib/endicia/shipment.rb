@@ -19,6 +19,10 @@ module Endicia
     def rate(options = {})      
       Request::Rate.new(@credentials, options).process_request
     end
+
+    def retail_rate(options = {})
+      Request::Rate.new(@credentials, options).process_retail_request
+    end    
     
     def pickup(options)
       Request::Pickup.new(@credentials, options).process_request

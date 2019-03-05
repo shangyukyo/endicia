@@ -24,6 +24,28 @@ module Endicia
         parsed_response(rsp)
       end
 
+      def process_retail_request
+        xml_builder.PostageRateRequest do |xml|
+          add_requester(xml)
+          add_certified_intermediary(xml)
+          xml.MailClass(@mail_class)
+          xml.Pricing 'Retail'
+          xml.WeightOz(@weight.round(1))
+          xml.ResponseOptions("PostagePrice" => 'FALSE')
+          add_insurance(xml) if @insured_value.to_f > 0
+          add_dimensions(xml) if @dimensions
+          xml.DeliveryTimeDays 'TRUE'
+          xml.FromPostalCode @shipper[:postal_code]
+          xml.ToPostalCode @recipient[:postal_code]
+          xml.ToCountryCode @recipient[:country_code]
+        end
+
+        service_url = "#{api_url}/CalculatePostageRateXML"
+        rsp = RestClient.post(service_url, { postageRateRequestXML: striped_xml_builder })
+        puts rsp
+        parsed_response(rsp)
+      end      
+
       def build_xml
         xml_builder.PostageRatesRequest do |xml|
           add_requester(xml)
