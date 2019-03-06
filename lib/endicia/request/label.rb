@@ -15,6 +15,7 @@ module Endicia
         @label_specification[:image_format] ||= 'PNG'
         @label_specification[:label_size] ||= '4x6'
         @filepath = @options[:filepath]
+        @signature_option = @options[:signature_option]
         @label_specification.merge!(filepath: @filepath)
       end
 
@@ -84,6 +85,7 @@ module Endicia
           xml.WeightOz(@weight.round(1))
           xml.IncludePostage 'TRUE'
           xml.ResponseOptions("PostagePrice" => 'FALSE')
+          add_signature_option(xml, @signature_option) if @signature_option
           xml.DeliveryTimeDays 'TRUE'
           add_insurance(xml) if @insured_value.to_f > 0
           add_dimensions(xml) if @dimensions
