@@ -69,6 +69,7 @@ module Endicia
 
       def add_signature_option(xml, signature)
         xml.Services :AdultSignature => signature, :AdultSignatureRestrictedDelivery => 'OFF'
+        xml.SignatureWaiver 'FALSE'
       end
 
       def add_account(xml)

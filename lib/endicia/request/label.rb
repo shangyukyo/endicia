@@ -21,6 +21,7 @@ module Endicia
 
       def process_request        
         build_xml
+
         service_url = "#{api_url}/GetPostageLabelXML"
         rsp = RestClient.post(service_url, { labelRequestXML: striped_xml_builder })
 
