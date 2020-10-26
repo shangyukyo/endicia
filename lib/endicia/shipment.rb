@@ -5,6 +5,7 @@ require 'endicia/request/delete'
 require 'endicia/request/label'
 require 'endicia/request/pickup'
 require 'endicia/request/track'
+require 'endicia/request/transactions'
 
 module Endicia
   class Shipment
@@ -51,5 +52,10 @@ module Endicia
     def buy_postage(amount, options = {})
       Request::Account.new(@credentials, options).buy_postage(amount)
     end
+
+    def transactions(options = {})
+      Request::Transactions.new(@credentials, options).process_request
+    end
+
   end
 end
