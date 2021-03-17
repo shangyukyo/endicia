@@ -17,10 +17,11 @@ module Endicia
         @filepath = @options[:filepath]
         @signature_option = @options[:signature_option]
         @label_specification.merge!(filepath: @filepath)
+        @customs_reference = @options[:customs_reference]
       end
 
       def process_request        
-        build_xml
+        puts build_xml
 
         service_url = "#{api_url}/GetPostageLabelXML"
         rsp = RestClient.post(service_url, { labelRequestXML: striped_xml_builder })
@@ -70,6 +71,12 @@ module Endicia
         }
       end
 
+      def add_customs_reference(xml)
+        xml.RubberStamp1(@customs_reference[0..25])
+        xml.RubberStamp2(@customs_reference[26..51])
+        xml.RubberStamp3(@customs_reference[52..77])
+      end
+
       def build_xml
         attributes = {}
 
@@ -80,7 +87,8 @@ module Endicia
         xml_builder.LabelRequest(attributes) do |xml|
           add_requester(xml)
           add_account(xml)
-          add_pass_phrase(xml)
+          add_pass_phrase(xml)   
+          add_customs_reference(xml)   
           xml.MailClass(@mail_class)
           add_sort_type(xml) if @mail_class =~ /ParcelSelect/            
           xml.WeightOz(@weight.round(1))
