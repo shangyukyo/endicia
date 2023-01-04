@@ -84,7 +84,7 @@ module Endicia
       end      
 
       def add_shipper(xml, address)
-        xml.FromCompny(address[:company]) if address[:company]
+        xml.FromCompany(address[:company]) if address[:company]
         xml.FromName(address[:name])
         street1, street2 = Array(address[:address])
         xml.ReturnAddress1(street1)
@@ -96,7 +96,7 @@ module Endicia
       end
 
       def add_recipient(xml, address)
-        xml.ToCompny(address[:company]) if address[:company]
+        xml.ToCompany(address[:company]) if address[:company]
         xml.ToName(address[:name])
         street1, street2 = Array(address[:address])
         xml.ToAddress1(street1)

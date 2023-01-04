@@ -26,6 +26,9 @@ module Endicia
         service_url = "#{api_url}/GetPostageLabelXML"
         rsp = RestClient.post(service_url, { labelRequestXML: striped_xml_builder })
 
+        puts rsp.inspect
+        puts rsp.body
+        puts "*****"
         Endicia::Label.new(parsed_response(rsp), @label_specification)
       end
 
