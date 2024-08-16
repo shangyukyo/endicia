@@ -69,6 +69,7 @@ module Endicia
               xml.Weight item[:weight]
               xml.Value total_value
               xml.CountryOfOrigin item[:origin_country]
+              xml.HSTariffNumber item[:hs_code]
             }
           end
         }
