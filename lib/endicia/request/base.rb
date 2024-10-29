@@ -68,7 +68,12 @@ module Endicia
       end
 
       def add_signature_option(xml, signature)
-        xml.Services :AdultSignature => signature, :AdultSignatureRestrictedDelivery => 'OFF'
+        if signature == 'ON'
+          xml.Services :AdultSignature => signature, :AdultSignatureRestrictedDelivery => 'OFF'
+        elsif signature == 'Signature'
+          xml.Services :SignatureConfirmation => 'ON', :AdultSignatureRestrictedDelivery => 'OFF'
+        end
+
         xml.SignatureWaiver 'FALSE'
       end
 
